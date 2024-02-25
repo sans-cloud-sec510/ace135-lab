@@ -23,8 +23,10 @@ module.exports = async event => {
 
   let statusCode = 200
 
+  await dependency()
+
   const responseBody = {
-    message: await dependency() // TODO: Don't expose the output once we have a solid exfiltration path.
+    message: 'Success'
   }
 
   return respond(statusCode, responseBody)
