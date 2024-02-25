@@ -16,10 +16,24 @@ data "aws_iam_policy_document" "assume_role" {
   }
 }
 
-data "aws_iam_policy_document" "secrets" {
+data "aws_iam_policy_document" "lambda_secrets" {
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
     resources = [aws_secretsmanager_secret.workshop.arn]
+    effect    = "Allow"
+  }
+}
+
+# Required for putting the Lambda in a custom VPC.
+data "aws_iam_policy_document" "lambda_vpc" {
+  statement {
+    actions   = [
+      "ec2:CreateNetworkInterface",
+      "ec2:DescribeNetworkInterfaces",
+      "ec2:DeleteNetworkInterface"
+    ]
+
+    resources = ["*"]
     effect    = "Allow"
   }
 }
@@ -54,14 +68,24 @@ resource "aws_iam_role" "workshop" {
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
-resource "aws_iam_policy" "secrets" {
-  name   = "ace135-workshop-chapter2-secrets"
-  policy = data.aws_iam_policy_document.secrets.json
+resource "aws_iam_policy" "lambda_secrets" {
+  name   = "ace135-workshop-chapter2-lambda-secrets"
+  policy = data.aws_iam_policy_document.lambda_secrets.json
 }
 
-resource "aws_iam_role_policy_attachment" "secrets" {
+resource "aws_iam_role_policy_attachment" "lambda_secrets" {
   role       = aws_iam_role.workshop.name
-  policy_arn = aws_iam_policy.secrets.arn
+  policy_arn = aws_iam_policy.lambda_secrets.arn
+}
+
+resource "aws_iam_policy" "lambda_vpc" {
+  name   = "ace135-workshop-chapter2-lambda-vpc"
+  policy = data.aws_iam_policy_document.lambda_vpc.json
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_vpc" {
+  role       = aws_iam_role.workshop.name
+  policy_arn = aws_iam_policy.lambda_vpc.arn
 }
 
 resource "aws_iam_policy" "lambda_cloudwatch" {
