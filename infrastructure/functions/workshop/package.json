@@ -1,0 +1,27 @@
+{
+  "name": "ace135-workshop-chapter2",
+  "version": "1.0.0",
+  "description": "Lambda used in the ACE135 Workshop Chapter 2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sans-cloud-sec510/ace135-lab.git"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "security"
+  ],
+  "author": "Brandon Evans (https://www.linkedin.com/in/brandonmaxevans/)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/sans-cloud-sec510/ace135-lab/issues"
+  },
+  "homepage": "https://github.com/sans-cloud-sec510/ace135-lab#readme",
+  "dependencies": {
+    "axios": "^1.6.7"
+  }
+}
