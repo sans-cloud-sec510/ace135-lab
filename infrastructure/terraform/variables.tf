@@ -1,12 +1,7 @@
-variable "runtime" {
-  description = "The runtime of the functions to use. Must have associated function code."
+variable "region" {
+  description = "The region in which to deploy the ACE135 Chapter 2 workshop infrastructure and application."
   type        = string
-  default     = "nodejs"
-
-  validation {
-    condition     = contains(["nodejs"], var.runtime)
-    error_message = "The runtime must be 'nodejs'."
-  }
+  default     = "us-east-1"
 }
 
 variable "PastebinId" {

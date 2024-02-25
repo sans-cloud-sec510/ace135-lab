@@ -1,7 +1,7 @@
 data "archive_file" "workshop_function_build" {
   type        = "zip"
   source_dir  = "${path.module}/../functions/workshop"
-  output_path = "/tmp/workshop-${var.runtime}-aws.zip"
+  output_path = "/tmp/workshop.zip"
 }
 
 resource "aws_lambda_function" "workshop" {
