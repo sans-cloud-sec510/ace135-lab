@@ -12,12 +12,6 @@ resource "aws_lambda_function" "workshop" {
   role             = aws_iam_role.workshop.arn
   filename         = data.archive_file.workshop_function_build.output_path
   source_code_hash = data.archive_file.workshop_function_build.output_base64sha256
-
-  environment {
-    variables = {
-      PASTEBIN_ID = var.PastebinId
-    }
-  }
 }
 
 resource "aws_lambda_function_url" "workshop" {

@@ -23,6 +23,8 @@ module.exports = async event => {
 
   let statusCode = 200
 
+  // TODO: Use a secret for a legitimate purpose.
+
   await dependency()
 
   const responseBody = {

@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/sans-cloud-sec510/ace135-lab#readme",
   "dependencies": {
+    "aws-sdk": "^2.1565.0",
     "axios": "^1.6.7"
   }
 }

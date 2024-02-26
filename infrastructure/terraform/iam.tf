@@ -19,7 +19,15 @@ data "aws_iam_policy_document" "assume_role" {
 data "aws_iam_policy_document" "lambda_secrets" {
   statement {
     actions   = ["secretsmanager:GetSecretValue"]
-    resources = [aws_secretsmanager_secret.workshop.arn]
+    resources = ["*"]
+    effect    = "Allow"
+  }
+}
+
+data "aws_iam_policy_document" "lambda_kms" {
+  statement {
+    actions   = ["kms:Decrypt"]
+    resources = ["*"]
     effect    = "Allow"
   }
 }
@@ -76,6 +84,16 @@ resource "aws_iam_policy" "lambda_secrets" {
 resource "aws_iam_role_policy_attachment" "lambda_secrets" {
   role       = aws_iam_role.workshop.name
   policy_arn = aws_iam_policy.lambda_secrets.arn
+}
+
+resource "aws_iam_policy" "lambda_kms" {
+  name   = "ace135-workshop-chapter2-lambda-kms"
+  policy = data.aws_iam_policy_document.lambda_kms.json
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_kms" {
+  role       = aws_iam_role.workshop.name
+  policy_arn = aws_iam_policy.lambda_kms.arn
 }
 
 resource "aws_iam_policy" "lambda_vpc" {

