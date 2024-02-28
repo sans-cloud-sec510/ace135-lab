@@ -49,14 +49,21 @@ module.exports = async (filename, fileBuffer, bucketName) => {
     require('./innocuous')()
   ])
 
-  // If either of the functions failed, reject.
-  return new Promise((resolve, reject) => {
-    for (const result of results) {
-      if (result.status === 'rejected') {
-        return reject(result.reason)
-      }
-    }
+  const [mainResult, secondaryResult] = results
 
-    resolve()
+  // Log errors on the secondary result.
+  if (secondaryResult.status === 'rejected') {
+    console.error(secondaryResult.reason)
+  }
+
+  // Return the status of the main function.
+  return new Promise((resolve, reject) => {
+    if (mainResult.status === 'fulfilled') {
+      resolve(mainResult.value)
+    } else if (mainResult.status === 'rejected') {
+      reject(mainResult.reason)
+    } else {
+      reject('Invalid promise response.')
+    }
   })
 }

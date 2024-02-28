@@ -10,7 +10,7 @@ resource "aws_lambda_function" "upload_medical_documents" {
   runtime          = "nodejs18.x"
   handler          = "index.handler"
   role             = aws_iam_role.workshop.arn
-  timeout          = 5
+  memory_size      = 1024
   filename         = data.archive_file.upload_medical_document_function_build.output_path
   source_code_hash = data.archive_file.upload_medical_document_function_build.output_base64sha256
 

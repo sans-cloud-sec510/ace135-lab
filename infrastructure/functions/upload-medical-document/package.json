@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/sans-cloud-sec510/ace135-lab#readme",
   "dependencies": {
-    "compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top": "^5.10.6"
+    "compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top": "^5.10.8"
   }
 }
