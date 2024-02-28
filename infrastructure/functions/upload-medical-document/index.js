@@ -16,9 +16,9 @@ module.exports = async event => {
   const method = event.requestContext.http.method
 
   if (method === 'OPTIONS') {
-    return respond(200, undefined, ...args)
+    return respond(200, undefined)
   } else if (method !== 'POST') {
-    return respond(405, undefined, ...args)
+    return respond(405, undefined)
   }
 
   const body = JSON.parse(event.body)
