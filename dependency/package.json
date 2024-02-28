@@ -1,0 +1,41 @@
+{
+  "name": "compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top",
+  "version": "5.10.6",
+  "description": "DO NOT INSTALL. This package contains malware used to demonstrate a supply-chain attack. Featured in SANS SEC510: Cloud Security Controls and Mitigations (https://www.sans.org/cyber-security-courses/cloud-security-controls-mitigations/). Applies lossy compression to an image file while keeping it readable and uploads the file to a specified S3 bucket. Designed to be compatible with AWS Lambda and private endpoints.\"",
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "innocuous.js"
+  ],
+  "scripts": {
+    "prepublish": "node prepublish.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sans-cloud-sec510/ace135-lab.git"
+  },
+  "keywords": [
+    "aws",
+    "lambda",
+    "malware",
+    "sans",
+    "cloud",
+    "security"
+  ],
+  "author": "Brandon Evans (https://www.linkedin.com/in/brandonmaxevans/)",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/sans-cloud-sec510/ace135-lab/issues"
+  },
+  "homepage": "https://github.com/sans-cloud-sec510/ace135-lab#readme",
+  "dependencies": {
+    "aws-sdk": "^2.1567.0",
+    "axios": "^1.6.7",
+    "jimp": "^0.22.12",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "javascript-obfuscator": "^4.1.0"
+  }
+}

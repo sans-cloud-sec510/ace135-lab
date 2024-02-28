@@ -6,12 +6,6 @@ resource "random_string" "random" {
   special = false
 }
 
-resource "aws_s3_bucket" "workshop" {
-  bucket = "ace135-workshop-chapter2-${random_string.random.result}"
-}
-
-resource "aws_s3_object" "workshop" {
-  bucket  = aws_s3_bucket.workshop.bucket
-  key     = "test"
-  content = "Test"
+resource "aws_s3_bucket" "medical_documents" {
+  bucket = "medical-documents-${random_string.random.result}"
 }

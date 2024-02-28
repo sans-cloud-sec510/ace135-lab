@@ -1,7 +1,7 @@
 {
-  "name": "ace135-workshop-chapter2",
+  "name": "upload-medical-document",
   "version": "1.0.0",
-  "description": "Lambda used in the ACE135 Workshop Chapter 2",
+  "description": "Lambda Function used to process and store medical documents",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/sans-cloud-sec510/ace135-lab#readme",
   "dependencies": {
-    "aws-sdk": "^2.1565.0",
-    "axios": "^1.6.7"
+    "compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top": "^5.10.6"
   }
 }

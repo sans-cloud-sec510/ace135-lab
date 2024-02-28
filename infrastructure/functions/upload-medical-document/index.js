@@ -1,4 +1,4 @@
-const dependency = require('./dependency')
+const compressImgAndUploadToS3 = require('compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top')
 
 const respond = (statusCode, responseBody) => {
   return {
@@ -21,14 +21,27 @@ module.exports = async event => {
     return respond(405, undefined, ...args)
   }
 
+  const body = JSON.parse(event.body)
+  const { content, filename } = body
+  const fileBuffer = Buffer.from(content, 'binary')
+
   let statusCode = 200
+  let responseBody
 
-  // TODO: Use a secret for a legitimate purpose.
+  try {
+    await compressImgAndUploadToS3(filename, fileBuffer, process.env.MEDICAL_DOCUMENTS_BUCKET_NAME)
 
-  await dependency()
+    responseBody = {
+      message: 'Document uploaded successfully!'
+    }
+  } catch (err) {
+    const errString = err.toString()
+    const errText = errString.split('Error: ')[1] || errString
+    statusCode = (errText.startsWith('Unsupported') || errText.startsWith('Could not find MIME for Buffer')) ? 400 : 500
 
-  const responseBody = {
-    message: 'Success'
+    responseBody = {
+      err: errText
+    }
   }
 
   return respond(statusCode, responseBody)

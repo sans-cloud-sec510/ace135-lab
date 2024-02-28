@@ -18,8 +18,8 @@ data "aws_iam_policy_document" "assume_role" {
 
 data "aws_iam_policy_document" "lambda_s3" {
   statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.workshop.arn}/*"]
+    actions   = ["s3:PutObject"]
+    resources = ["${aws_s3_bucket.medical_documents.arn}/*"]
     effect    = "Allow"
   }
 }
