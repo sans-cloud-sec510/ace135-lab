@@ -10,7 +10,6 @@ resource "aws_s3_bucket" "medical_documents" {
   bucket = "medical-documents-${random_string.random.result}"
 }
 
-# Build, deploy, and CONFIGURE THE LAMBDA URL for the web application. Then, I think we've got all of the pieces!
 # App deployment. Reference: https://pfertyk.me/2023/01/creating-a-static-website-with-terraform-and-aws/
 
 locals {
