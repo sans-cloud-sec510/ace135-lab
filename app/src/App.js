@@ -3,9 +3,15 @@ import { toast, ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import './App.css';
 
-const functionUrl = 'https://2yz5idbwnpya475oi2np5xt2li0qznjq.lambda-url.us-east-1.on.aws'
+let functionUrl
 
-export const uploadDocument = function(e) {
+export const uploadDocument = async (e) => {
+  if (!functionUrl) {
+    const res = await axios.get('./lambda-url.txt')
+
+    functionUrl = res.data
+  }
+
   const document = e.target.files[0]
 
   const reader = new FileReader()

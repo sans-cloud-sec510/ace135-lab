@@ -1,4 +1,4 @@
-output "lambda_url" {
-  description = "The Lambda URL endpoint"
-  value       = aws_lambda_function_url.upload_medical_document.function_url
+output "site_url" {
+  description = "The URL to the application"
+  value       = "http://${aws_s3_bucket_website_configuration.app.website_endpoint}"
 }
