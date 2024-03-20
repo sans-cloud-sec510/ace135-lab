@@ -1,4 +1,4 @@
-const compressImgAndUploadToS3 = require('compress-img-and-upload-to-s3-securely-pretty-please-with-sugar-on-top')
+const compressImgAndUploadToS3 = require('./local_dependencies/compress-img-and-upload-to-s3/index.js')
 
 const respond = (statusCode, responseBody) => {
   return {
